@@ -1,7 +1,7 @@
 import { json } from "express";
 import Express from "express";
 import cors from "cors";
-import Routes from "./routes";
+import Routes from "./routes/index.js";
 
 // configs
 const app = new Express();
@@ -15,7 +15,7 @@ app.use(
 );
 
 // add route directory
-app.set("/api", Routes);
+app.use("/api", Routes);
 
 // listen to the server
 app.listen(process.env.PORT || PORT, () => {
