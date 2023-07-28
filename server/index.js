@@ -1,6 +1,7 @@
 import { json } from "express";
 import Express from "express";
 import cors from "cors";
+import Routes from "./routes";
 
 // configs
 const app = new Express();
@@ -12,6 +13,9 @@ app.use(
     methods: ["GET", "POST", "PUT", "DELETE"],
   })
 );
+
+// add route directory
+app.set("/api", Routes);
 
 // listen to the server
 app.listen(process.env.PORT || PORT, () => {
