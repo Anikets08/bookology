@@ -1,4 +1,4 @@
-const books = [
+const booksTemp = [
   {
     book_id: 52861201,
     name: "From Blood and Ash",
@@ -183,6 +183,8 @@ const books = [
     book_id: "56597885",
     name: "Beautiful World, Where Are You",
     category: "Fiction",
+    votes: 10000,
+    author: "Sally Roone",
     cover:
       "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1618329605l/56597885.jpg",
     url: "https://www.goodreads.com/choiceawards/best-fiction-books-2021",
@@ -191,6 +193,8 @@ const books = [
     book_id: "58744977",
     name: "The Last Thing He Told Me",
     category: "Mystery & Thriller",
+    votes: 12130,
+    author: "Laura Dave",
     cover:
       "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1628623381l/58744977._SY475_.jpg",
     url: "https://www.goodreads.com/choiceawards/best-mystery-thriller-books-2021",
@@ -198,6 +202,8 @@ const books = [
   {
     book_id: "58745185",
     name: "Malibu Rising",
+    votes: 11176,
+    author: "Taylor Jenkin",
     category: "Historical Fiction",
     cover:
       "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1628625865l/58745185._SY475_.jpg",
@@ -207,6 +213,8 @@ const books = [
     book_id: "53138095",
     name: "A ​Court of Silver Flames (A Court of Thorns and Roses, #4)",
     category: "Fantasy",
+    votes: 123134,
+    author: "Sarah J. Maas",
     cover:
       "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1602570691l/53138095.jpg",
     url: "https://www.goodreads.com/choiceawards/best-fantasy-books-2021",
@@ -215,6 +223,7 @@ const books = [
     book_id: "54985743",
     name: "People We Meet on Vacation",
     category: "Romance",
+    votes: 101598,
     cover:
       "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1618913179l/54985743.jpg",
     url: "https://www.goodreads.com/choiceawards/best-romance-books-2021",
@@ -222,6 +231,7 @@ const books = [
   {
     book_id: "54493401",
     name: "Project Hail Mary",
+    votes: 100000,
     category: "Science Fiction",
     cover:
       "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1597695864l/54493401.jpg",
@@ -231,6 +241,8 @@ const books = [
     book_id: "55829194",
     name: "The Final Girl Support Group",
     category: "Horror",
+    votes: 1000123,
+    author: "Grady Hendri",
     cover:
       "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1614275199l/55829194.jpg",
     url: "https://www.goodreads.com/choiceawards/best-horror-books-2021",
@@ -239,6 +251,8 @@ const books = [
     book_id: "54305363",
     name: "Broken (In the Best Possible Way)",
     category: "Humor",
+    votes: 7651241,
+    author: "Jenny Lawso",
     cover:
       "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1597856341l/54305363.jpg",
     url: "https://www.goodreads.com/choiceawards/best-humor-books-2021",
@@ -246,7 +260,9 @@ const books = [
   {
     book_id: "55145261",
     name: "The Anthropocene Reviewed",
+    author: "John Gree",
     category: "Nonfiction",
+    votes: 1012312,
     cover:
       "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1616514130l/55145261.jpg",
     url: "https://www.goodreads.com/choiceawards/best-nonfiction-books-2021",
@@ -254,6 +270,8 @@ const books = [
   {
     book_id: "54814676",
     name: "Crying in H Mart",
+    author: "Michelle Zauner",
+    votes: 1287623,
     category: "Memoir & Autobiography",
     cover:
       "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1601937850l/54814676.jpg",
@@ -261,8 +279,10 @@ const books = [
   },
   {
     book_id: "43868109",
+    votes: 65124,
     name: "Empire of Pain: The Secret History of the Sackler Dynasty",
     category: "History & Biography",
+    author: "Patrick Radden Keefe",
     cover:
       "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1611952534l/43868109.jpg",
     url: "https://www.goodreads.com/choiceawards/best-history-biography-books-2021",
@@ -279,6 +299,7 @@ const books = [
     book_id: "56914101",
     name: "The Hill We Climb: An Inaugural Poem for the Country",
     category: "Poetry",
+    author: "Amanda Gorma",
     cover:
       "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1612178266l/56914101.jpg",
     url: "https://www.goodreads.com/choiceawards/best-poetry-books-2021",
@@ -287,6 +308,8 @@ const books = [
     book_id: "57190892",
     name: "The Spanish Love Deception (Spanish Love Deception, #1)",
     category: "Debut Novel",
+    votes: 123123,
+    author: "Elena Arma",
     cover:
       "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1614122544l/57190892._SY475_.jpg",
     url: "https://www.goodreads.com/choiceawards/best-debut-novel-2021",
@@ -295,6 +318,8 @@ const books = [
     book_id: "57812106",
     name: "Firekeeper's Daughter",
     category: "Young Adult Fiction",
+    author: "Angeline Bouley",
+    votes: 123123,
     cover:
       "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1619021348l/57812106._SY475_.jpg",
     url: "https://www.goodreads.com/choiceawards/best-young-adult-fiction-books-2021",
@@ -303,14 +328,18 @@ const books = [
     book_id: "54589790",
     name: "Rule of Wolves (King of Scars, #2)",
     category: "Young Adult Fantasy",
+    author: "Leigh Bardug",
+    votes: 123123,
     cover:
       "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1598133973l/54589790.jpg",
     url: "https://www.goodreads.com/choiceawards/best-young-adult-fantasy-books-2021",
   },
   {
     book_id: "57094644",
+    votes: 123123,
     name: "Daughter of the Deep",
     category: "Middle Grade & Children's",
+    author: "Rick Riorda",
     cover:
       "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1622742517l/57094644.jpg",
     url: "https://www.goodreads.com/choiceawards/best-childrens-books-2021",
@@ -319,6 +348,8 @@ const books = [
   {
     book_id: 62080187,
     name: "Never Lie",
+    author: "Elizabeth Co",
+    votes: 123123,
     cover:
       "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1661428846l/62080187._SY475_.jpg",
     url: "https://www.goodreads.com/book/show/62080187-never-lie",
@@ -326,6 +357,8 @@ const books = [
   {
     book_id: 80830635,
     name: "Don't Let Her Stay",
+    author: "Elisabeth S",
+    votes: 123123,
     cover:
       "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1674147285l/80830635._SY475_.jpg",
     url: "https://www.goodreads.com/book/show/80830635-don-t-let-her-stay",
@@ -333,6 +366,8 @@ const books = [
   {
     book_id: 123193218,
     name: "Ward D",
+    votes: 123123,
+    author: "Laurie Gardne",
     cover:
       "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1678127541l/123193218._SY475_.jpg",
     url: "https://www.goodreads.com/book/show/123193218-ward-d",
@@ -340,6 +375,8 @@ const books = [
   {
     book_id: 62703226,
     name: "The Only One Left",
+    votes: 123123,
+    author: "Dianne Duvall",
     cover:
       "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1668181003l/62703226.jpg",
     url: "https://www.goodreads.com/book/show/62703226-the-only-one-left",
@@ -347,6 +384,8 @@ const books = [
   {
     book_id: 57795665,
     name: "The Locked Door",
+    author: "J.A. Hensley",
+    votes: 123123,
     cover:
       "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1618859577l/57795665._SY475_.jpg",
     url: "https://www.goodreads.com/book/show/57795665-the-locked-door",
@@ -354,6 +393,8 @@ const books = [
   {
     book_id: 58724923,
     name: "Hidden Pictures",
+    author: "Linda S. Prather",
+    votes: 123123,
     cover:
       "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1635260162l/58724923.jpg",
     url: "https://www.goodreads.com/book/show/58724923-hidden-pictures",
@@ -361,6 +402,8 @@ const books = [
   {
     book_id: 61458888,
     name: "You Shouldn't Have Come Here",
+    author: "Elizabeth E",
+    votes: 123123,
     cover:
       "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1666310687l/61458888.jpg",
     url: "https://www.goodreads.com/book/show/61458888-you-shouldn-t-have-come-here",
@@ -368,6 +411,7 @@ const books = [
   {
     book_id: 54197718,
     name: "One By One",
+    author: "Ruth Heald",
     cover:
       "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1592705582l/54197718._SY475_.jpg",
     url: "https://www.goodreads.com/book/show/54197718-one-by-one",
@@ -375,6 +419,7 @@ const books = [
   {
     book_id: 58909880,
     name: "The House Across the Lake",
+    votes: 123123,
     cover:
       "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1639618949l/58909880.jpg",
     url: "https://www.goodreads.com/book/show/58909880-the-house-across-the-lake",
@@ -382,10 +427,30 @@ const books = [
   {
     book_id: 61897971,
     name: "The Quiet Tenant",
+    votes: 123123,
+    author: "Sarah A. Denzil",
     cover:
       "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1684817278l/61897971.jpg",
     url: "https://www.goodreads.com/book/show/61897971-the-quiet-tenant",
   },
 ];
+
+const genres = [
+  "Romance",
+  "Mystery & Thriller",
+  "Fantasy",
+  "Science Fiction",
+  "Horror",
+  "History & Biography",
+  "Middle Grade & Children's",
+  "Fiction",
+  "Debut Novel",
+  "Young Adult Fiction",
+];
+
+const books = booksTemp.map((book) => {
+  const randomIndex = Math.floor(Math.random() * genres.length);
+  return { ...book, genre: genres[randomIndex] };
+});
 
 export default books;

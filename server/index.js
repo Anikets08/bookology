@@ -5,11 +5,12 @@ import Routes from "./routes/index.js";
 
 // configs
 const app = new Express();
-const PORT = 3000;
+const PORT = 3123;
 app.use(json());
 app.use(
   cors({
     origin: "*",
+
     methods: ["GET", "POST", "PUT", "DELETE"],
   })
 );
