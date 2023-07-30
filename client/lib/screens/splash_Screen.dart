@@ -1,7 +1,5 @@
 import 'package:bookology/common/constants.dart';
-import 'package:bookology/models/book_model.dart';
-import 'package:bookology/providers/books_provider.dart';
-import 'package:bookology/providers/util_provider.dart';
+import 'package:bookology/common/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -31,41 +29,13 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
     controller.forward();
     controller.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
-        addToProvider();
+        addToProvider(ref);
         Future.delayed(const Duration(milliseconds: 500), () {
           Navigator.pushReplacementNamed(context,
               Hive.box(kAppStorage).containsKey("name") ? "/main" : "/getinfo");
         });
       }
     });
-  }
-
-  void addToProvider() {
-    bool containsFav = ref.read(hiveProvider).containsKey("fav");
-    bool containerBuy = ref.read(hiveProvider).containsKey("buy");
-    if (containsFav) {
-      ref.read(favouriteProvider.notifier).addAll(
-            List<BookModel>.from(
-              ref.read(hiveProvider).get("fav").map(
-                    (book) => BookModel.fromJson(book),
-                  ),
-            ),
-          );
-    }
-    if (containerBuy) {
-      print(
-        ref.read(hiveProvider).get("buy").map(
-              (book) => BookModel.fromJson(book).name,
-            ),
-      );
-      ref.read(buyProvider.notifier).addAll(
-            List<BookModel>.from(
-              ref.read(hiveProvider).get("buy").map(
-                    (book) => BookModel.fromJson(book),
-                  ),
-            ),
-          );
-    }
   }
 
   @override

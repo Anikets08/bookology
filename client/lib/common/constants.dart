@@ -19,6 +19,7 @@ var splashGradient = LinearGradient(
   end: Alignment.topCenter,
 );
 List<String> genreList = [
+  "All",
   "Romance",
   "Mystery & Thriller",
   "Fantasy",

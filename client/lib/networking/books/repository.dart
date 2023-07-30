@@ -10,8 +10,8 @@ class BookRepository {
   Future<Either<Map, Map>> getBooks() async {
     BookModel bookModel;
     try {
-      final http.Response response =
-          await http.get(Uri.parse("http://192.168.29.102:3123/api/books"));
+      final http.Response response = await http
+          .get(Uri.parse("https://bokology-server.onrender.com/api/books"));
       final decodedData = jsonDecode(response.body);
 
       return right(
@@ -24,27 +24,7 @@ class BookRepository {
   }
 
   Future<http.Response> getBook(String bookId) async {
-    return await http.get(Uri.parse("http://localhost:3000/books/$bookId"));
-  }
-
-  Future<http.Response> addBook(Map<String, dynamic> book) async {
-    return await http.post(
-      Uri.parse("http://localhost:3000/books"),
-      body: book,
-    );
-  }
-
-  Future<http.Response> updateBook(
-    String bookId,
-    Map<String, dynamic> book,
-  ) async {
-    return await http.put(
-      Uri.parse("http://localhost:3000/books/$bookId"),
-      body: book,
-    );
-  }
-
-  static Future<http.Response> deleteBook(String bookId) async {
-    return await http.delete(Uri.parse("http://localhost:3000/books/$bookId"));
+    return await http.get(
+        Uri.parse("https://bokology-server.onrender.com/api/books/$bookId"));
   }
 }

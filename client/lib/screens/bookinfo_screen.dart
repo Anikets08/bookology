@@ -1,8 +1,12 @@
 import 'package:bookology/common/constants.dart';
+import 'package:bookology/common/widgets/alert_dialog.dart';
 import 'package:bookology/models/book_model.dart';
 import 'package:bookology/providers/books_provider.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import '../common/utils.dart';
 
 class BookInfoScreen extends ConsumerStatefulWidget {
   final BookModel? book;
@@ -13,12 +17,6 @@ class BookInfoScreen extends ConsumerStatefulWidget {
 
 class _BookInfoScreenState extends ConsumerState<BookInfoScreen> {
   @override
-  void initState() {
-    print(ref.read(favouriteProvider).length);
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     final fav = ref.watch(favouriteProvider);
     final bought = ref.watch(buyProvider);
@@ -26,61 +24,7 @@ class _BookInfoScreenState extends ConsumerState<BookInfoScreen> {
     final BookModel data =
         ModalRoute.of(context)?.settings.arguments as BookModel;
 
-    void addFav() async {
-      ref.read(favouriteProvider.notifier).addBook(data);
-    }
-
-    void removeFav() async {
-      ref.read(favouriteProvider.notifier).removeBook(data);
-    }
-
-    void addBuy() {
-      ref.read(buyProvider.notifier).addBook(data);
-    }
-
     bool isFav = fav.any((element) => element.bookId == data.bookId);
-
-    // alert dialog to show the book is added to cart
-    void showAlertDialog(BuildContext context) {
-      // set up the button
-      Widget okButton = TextButton(
-        child: const Text("OK"),
-        onPressed: () {
-          Navigator.of(context).pop();
-        },
-      );
-      // set up the AlertDialog
-      AlertDialog alert = AlertDialog(
-        backgroundColor: Colors.white,
-        title:
-            const Text("Happy Reading!", style: TextStyle(color: Colors.black)),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            const Text(
-              "Your book has been added to your reading list.",
-              style: TextStyle(color: Colors.black),
-            ),
-            const SizedBox(height: 40),
-            Image.asset(
-              splashImage,
-              height: 100,
-            ),
-          ],
-        ),
-        actions: [
-          okButton,
-        ],
-      );
-      // show the dialog
-      showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return alert;
-        },
-      );
-    }
-
     return Scaffold(
       bottomNavigationBar: Row(
         children: [
@@ -92,7 +36,13 @@ class _BookInfoScreenState extends ConsumerState<BookInfoScreen> {
                   Colors.white,
                 ),
               ),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushReplacementNamed(
+                  context,
+                  "/listen",
+                  arguments: data,
+                );
+              },
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -121,8 +71,8 @@ class _BookInfoScreenState extends ConsumerState<BookInfoScreen> {
               ),
               onPressed: () {
                 bought.any((element) => element.bookId == data.bookId)
-                    ? addBuy()
-                    : null;
+                    ? null
+                    : addBuy(ref, data);
                 showAlertDialog(context);
               },
               child: Row(
@@ -182,7 +132,7 @@ class _BookInfoScreenState extends ConsumerState<BookInfoScreen> {
                         ),
                       ),
                       onPressed: () {
-                        isFav ? removeFav() : addFav();
+                        isFav ? removeFav(ref, data) : addFav(ref, data);
                       },
                       icon: Icon(
                         isFav ? Icons.favorite : Icons.favorite_border,
@@ -195,11 +145,11 @@ class _BookInfoScreenState extends ConsumerState<BookInfoScreen> {
                 Row(
                   children: [
                     Hero(
-                      tag: data.cover,
+                      tag: data.bookId,
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(20),
-                        child: Image.network(
-                          data.cover,
+                        child: CachedNetworkImage(
+                          imageUrl: data.cover,
                           height: 250,
                         ),
                       ),

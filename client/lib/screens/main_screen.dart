@@ -1,3 +1,4 @@
+import 'package:bookology/common/widgets/navlist_widget.dart';
 import 'package:bookology/screens/nav_screens/fav_screen.dart';
 import 'package:bookology/screens/nav_screens/home_screen.dart';
 import 'package:bookology/screens/nav_screens/profile_Screen.dart';
@@ -27,28 +28,7 @@ class _MainScreenState extends ConsumerState<MainScreen> {
         },
         selectedIndex: currentIndex,
         labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
-        destinations: const <NavigationDestination>[
-          NavigationDestination(
-            selectedIcon: Icon(Icons.home_filled),
-            icon: Icon(Icons.home),
-            label: 'Home',
-          ),
-          NavigationDestination(
-            selectedIcon: Icon(Icons.favorite),
-            icon: Icon(Icons.favorite_border),
-            label: 'Favourites',
-          ),
-          NavigationDestination(
-            selectedIcon: Icon(Icons.search),
-            icon: Icon(Icons.search),
-            label: 'Search',
-          ),
-          NavigationDestination(
-            selectedIcon: Icon(Icons.person),
-            icon: Icon(Icons.person_outline),
-            label: 'Profile',
-          ),
-        ],
+        destinations: bottomNavList,
       ),
       body: IndexedStack(
         index: currentIndex,
