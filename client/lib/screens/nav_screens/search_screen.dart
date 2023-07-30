@@ -18,9 +18,9 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
   @override
   Widget build(BuildContext context) {
     var data = ref.watch(bookProvider);
-    var filtered =
-        data.filter((element) => element.name.contains(_controller.text))
-            as List<BookModel>;
+    var filtered = data.filter((element) =>
+            element.name.toLowerCase().contains(_controller.text.toLowerCase()))
+        as List<BookModel>;
 
     return Scaffold(
       body: Column(
@@ -53,26 +53,47 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
               ),
             ),
           ),
-          TextField(
-            controller: _controller,
-            onChanged: (value) {
-              setState(() {
-                filtered = data.filter((element) => element.name
-                    .toLowerCase()
-                    .contains(value.toLowerCase())) as List<BookModel>;
-              });
-            },
-            decoration: const InputDecoration(
-              hintText: "Enter Book Name",
-              hintStyle: TextStyle(
-                color: Colors.white,
+          Row(
+            children: [
+              Expanded(
+                child: TextField(
+                  controller: _controller,
+                  onChanged: (value) {
+                    setState(() {
+                      filtered = data.filter((element) => element.name
+                          .toLowerCase()
+                          .contains(value.toLowerCase())) as List<BookModel>;
+                    });
+                  },
+                  decoration: const InputDecoration(
+                    hintText: "Enter Book Name",
+                    hintStyle: TextStyle(
+                      color: Colors.white,
+                    ),
+                    border: InputBorder.none,
+                    prefixIcon: Icon(
+                      Icons.search,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
               ),
-              border: InputBorder.none,
-              prefixIcon: Icon(
-                Icons.search,
-                color: Colors.white,
-              ),
-            ),
+              _controller.text.isNotEmpty
+                  ? IconButton(
+                      onPressed: () {
+                        setState(() {
+                          _controller.clear();
+                          FocusScope.of(context).unfocus();
+                        });
+                      },
+                      icon: const Icon(
+                        Icons.clear,
+                        size: 20,
+                        color: Colors.grey,
+                      ),
+                    )
+                  : const SizedBox(),
+            ],
           ),
           filtered.isEmpty
               ? const Expanded(

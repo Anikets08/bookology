@@ -15,7 +15,7 @@ class HeroCarosel extends ConsumerStatefulWidget {
 }
 
 class _HeroCaroselState extends ConsumerState<HeroCarosel> {
-  int pageViewIndex = 0;
+  int pageViewIndex = 10 ~/ 2;
   List<BookModel> get bookList => widget.bookList;
   @override
   Widget build(BuildContext context) {
