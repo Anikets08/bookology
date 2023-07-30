@@ -37,7 +37,7 @@ class GetInfoScreen extends ConsumerWidget {
                           .read(hiveProvider.notifier)
                           .state
                           .put("name", nameController.text);
-                      Navigator.pushReplacementNamed(context, "/home");
+                      Navigator.pushReplacementNamed(context, "/main");
                     },
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(

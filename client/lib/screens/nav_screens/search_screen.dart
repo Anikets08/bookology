@@ -1,0 +1,178 @@
+import 'package:bookology/common/widgets/gradient_container.dart';
+import 'package:bookology/models/book_model.dart';
+import 'package:bookology/providers/books_provider.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter/material.dart';
+import 'package:fpdart/fpdart.dart';
+
+class SearchScreen extends ConsumerStatefulWidget {
+  const SearchScreen({Key? key}) : super(key: key);
+  @override
+  ConsumerState<ConsumerStatefulWidget> createState() => _SearchScreenState();
+}
+
+class _SearchScreenState extends ConsumerState<SearchScreen> {
+  final TextEditingController _controller = TextEditingController();
+
+  @override
+  Widget build(BuildContext context) {
+    var data = ref.watch(bookProvider);
+    var filtered =
+        data.filter((element) => element.name.contains(_controller.text))
+            as List<BookModel>;
+
+    return Scaffold(
+      body: Column(
+        children: [
+          _controller.text.isEmpty
+              ? const SizedBox()
+              : const SizedBox(height: 80),
+          AnimatedSize(
+            duration: const Duration(milliseconds: 300),
+            child: SizedBox(
+              height: _controller.text.isEmpty ? 200 : 0,
+              child: AnimatedOpacity(
+                opacity: _controller.text.isEmpty ? 1 : 0,
+                duration: const Duration(milliseconds: 300),
+                child: gradientContainer(
+                  context: context,
+                  color: Colors.blue,
+                  child: Center(
+                    child: Text(
+                      "Search",
+                      style: Theme.of(context).textTheme.headline1?.copyWith(
+                            color: Colors.white,
+                            fontSize: 40,
+                            letterSpacing: -2.8,
+                            fontWeight: FontWeight.bold,
+                          ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+          TextField(
+            controller: _controller,
+            onChanged: (value) {
+              setState(() {
+                filtered = data.filter((element) => element.name
+                    .toLowerCase()
+                    .contains(value.toLowerCase())) as List<BookModel>;
+              });
+            },
+            decoration: const InputDecoration(
+              hintText: "Enter Book Name",
+              hintStyle: TextStyle(
+                color: Colors.white,
+              ),
+              border: InputBorder.none,
+              prefixIcon: Icon(
+                Icons.search,
+                color: Colors.white,
+              ),
+            ),
+          ),
+          filtered.isEmpty
+              ? const Expanded(
+                  child: Center(
+                    child: Text("No Favourites"),
+                  ),
+                )
+              : Expanded(
+                  child: ListView.builder(
+                    physics: const BouncingScrollPhysics(),
+                    itemCount: filtered.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return GestureDetector(
+                        onTap: () {
+                          Navigator.pushNamed(context, '/bookinfo',
+                              arguments: filtered[index]);
+                        },
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 15),
+                          child: Row(
+                            children: [
+                              Container(
+                                height:
+                                    MediaQuery.of(context).size.height * 0.2,
+                                width: MediaQuery.of(context).size.width * 0.3,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  image: DecorationImage(
+                                    image: NetworkImage(filtered[index].cover),
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(width: 20),
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      filtered[index].name,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .headline1
+                                          ?.copyWith(
+                                            color: Colors.white,
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                    ),
+                                    Text(
+                                      "#${filtered[index].genre}",
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .headline1
+                                          ?.copyWith(
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .secondary,
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                    ),
+                                    SizedBox(
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              0.01,
+                                    ),
+                                    Text(
+                                      filtered[index].author,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .headline1
+                                          ?.copyWith(
+                                            color: Colors.white,
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.w400,
+                                          ),
+                                    ),
+                                    Text(
+                                      "Reads: ${filtered[index].votes.toString()}",
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .headline1
+                                          ?.copyWith(
+                                            color: Colors.white,
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.w400,
+                                          ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                )
+        ],
+      ),
+    );
+  }
+}

@@ -17,7 +17,7 @@ class BookModel {
     required this.genre,
   });
 
-  factory BookModel.fromJson(Map<String, dynamic> json) {
+  factory BookModel.fromJson(Map<dynamic, dynamic> json) {
     return BookModel(
       bookId: json['book_id'].toString(),
       name: json['name'],
@@ -30,7 +30,7 @@ class BookModel {
   }
 
   Map<String, dynamic> toJson() => {
-        'bookId': bookId,
+        'book_id': bookId,
         'name': name,
         'author': author,
         'votes': votes,

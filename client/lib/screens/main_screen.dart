@@ -1,4 +1,7 @@
+import 'package:bookology/screens/nav_screens/fav_screen.dart';
 import 'package:bookology/screens/nav_screens/home_screen.dart';
+import 'package:bookology/screens/nav_screens/profile_Screen.dart';
+import 'package:bookology/screens/nav_screens/search_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -31,11 +34,6 @@ class _MainScreenState extends ConsumerState<MainScreen> {
             label: 'Home',
           ),
           NavigationDestination(
-            selectedIcon: Icon(Icons.multitrack_audio),
-            icon: Icon(Icons.multitrack_audio),
-            label: 'Audio Book',
-          ),
-          NavigationDestination(
             selectedIcon: Icon(Icons.favorite),
             icon: Icon(Icons.favorite_border),
             label: 'Favourites',
@@ -45,21 +43,20 @@ class _MainScreenState extends ConsumerState<MainScreen> {
             icon: Icon(Icons.search),
             label: 'Search',
           ),
+          NavigationDestination(
+            selectedIcon: Icon(Icons.person),
+            icon: Icon(Icons.person_outline),
+            label: 'Profile',
+          ),
         ],
       ),
       body: IndexedStack(
         index: currentIndex,
         children: const [
           HomeScreen(),
-          Center(
-            child: Text("Audio Book"),
-          ),
-          Center(
-            child: Text("Favourites"),
-          ),
-          Center(
-            child: Text("Search"),
-          ),
+          FavScreen(),
+          SearchScreen(),
+          ProfileScreen(),
         ],
       ),
     );

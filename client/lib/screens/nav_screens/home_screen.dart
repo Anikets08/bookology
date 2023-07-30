@@ -79,27 +79,44 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                                     right: 8,
                                     top: 65,
                                   ),
-                                  child: AnimatedContainer(
-                                    duration: const Duration(milliseconds: 200),
-                                    curve: Curves.easeIn,
-                                    height: pageViewIndex == index ? 300 : 220,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(20),
-                                    ),
-                                    child: ConstrainedBox(
-                                      constraints:
-                                          const BoxConstraints.expand(),
-                                      child: ClipRRect(
-                                        borderRadius: BorderRadius.circular(15),
-                                        child: CachedNetworkImage(
-                                          imageUrl: bookList[index].cover,
-                                          fit: BoxFit.fill,
-                                          placeholder: (context, url) =>
-                                              const Center(
-                                            child: CupertinoActivityIndicator(),
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      Navigator.pushNamed(
+                                        context,
+                                        "/bookinfo",
+                                        arguments: bookList[pageViewIndex],
+                                      );
+                                    },
+                                    child: AnimatedContainer(
+                                      duration:
+                                          const Duration(milliseconds: 200),
+                                      curve: Curves.easeIn,
+                                      height:
+                                          pageViewIndex == index ? 300 : 220,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(20),
+                                      ),
+                                      child: ConstrainedBox(
+                                        constraints:
+                                            const BoxConstraints.expand(),
+                                        child: Hero(
+                                          tag: bookList[index].cover,
+                                          child: ClipRRect(
+                                            borderRadius:
+                                                BorderRadius.circular(15),
+                                            child: CachedNetworkImage(
+                                              imageUrl: bookList[index].cover,
+                                              fit: BoxFit.fill,
+                                              placeholder: (context, url) =>
+                                                  const Center(
+                                                child:
+                                                    CupertinoActivityIndicator(),
+                                              ),
+                                              errorWidget:
+                                                  (context, url, error) =>
+                                                      const Icon(Icons.error),
+                                            ),
                                           ),
-                                          errorWidget: (context, url, error) =>
-                                              const Icon(Icons.error),
                                         ),
                                       ),
                                     ),
@@ -263,89 +280,98 @@ class _ContentState extends ConsumerState<Content> {
       ),
       itemCount: filteredList().length,
       itemBuilder: (context, index) {
-        return Padding(
-          padding: const EdgeInsets.all(15.0),
-          child: Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(15),
-              color: Colors.white.withOpacity(0.1),
-              image: DecorationImage(
-                image: NetworkImage(
-                  filteredList()[index].cover,
+        return GestureDetector(
+          onTap: () {
+            Navigator.pushNamed(context, "/bookinfo",
+                arguments: filteredList()[index]);
+          },
+          child: Padding(
+            padding: const EdgeInsets.all(15.0),
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(15),
+                color: Colors.white.withOpacity(0.1),
+                image: DecorationImage(
+                  image: NetworkImage(
+                    filteredList()[index].cover,
+                  ),
+                  fit: BoxFit.cover,
                 ),
-                fit: BoxFit.cover,
               ),
-            ),
-            child: Stack(
-              children: [
-                Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(15),
-                    gradient: LinearGradient(
-                      colors: [
-                        Colors.black.withOpacity(0.9),
-                        Colors.black.withOpacity(0.7),
-                        Colors.transparent,
-                      ],
-                      begin: Alignment.bottomCenter,
-                      end: Alignment.topCenter,
+              child: Stack(
+                children: [
+                  Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(15),
+                      gradient: LinearGradient(
+                        colors: [
+                          Colors.black.withOpacity(0.9),
+                          Colors.black.withOpacity(0.7),
+                          Colors.transparent,
+                        ],
+                        begin: Alignment.bottomCenter,
+                        end: Alignment.topCenter,
+                      ),
                     ),
                   ),
-                ),
-                Positioned(
-                  bottom: 10,
-                  left: 0,
-                  right: 0,
-                  child: Column(
-                    children: [
-                      Text(
-                        filteredList()[index].name,
-                        textAlign: TextAlign.center,
-                        style: Theme.of(context).textTheme.bodyText1,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                      Text(
-                        filteredList()[index].author == "null"
-                            ? "Amitabh Bachchan"
-                            : filteredList()[index].author,
-                        textAlign: TextAlign.center,
-                        style: Theme.of(context).textTheme.bodyText2?.copyWith(
-                              color: Colors.grey,
-                              fontSize: 14,
+                  Positioned(
+                    bottom: 10,
+                    left: 0,
+                    right: 0,
+                    child: Column(
+                      children: [
+                        Text(
+                          filteredList()[index].name,
+                          textAlign: TextAlign.center,
+                          style: Theme.of(context).textTheme.bodyText1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        Text(
+                          filteredList()[index].author == "null"
+                              ? "Amitabh Bachchan"
+                              : filteredList()[index].author,
+                          textAlign: TextAlign.center,
+                          style:
+                              Theme.of(context).textTheme.bodyText2?.copyWith(
+                                    color: Colors.grey,
+                                    fontSize: 14,
+                                  ),
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        const SizedBox(
+                          height: 5,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Icon(
+                              Icons.star,
+                              color: Colors.yellow,
+                              size: 16,
                             ),
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const Icon(
-                            Icons.star,
-                            color: Colors.yellow,
-                            size: 16,
-                          ),
-                          const SizedBox(
-                            width: 5,
-                          ),
-                          Text(
-                            filteredList()[index].votes == "null"
-                                ? "0"
-                                : filteredList()[index].votes.toString(),
-                            style:
-                                Theme.of(context).textTheme.bodyText2?.copyWith(
-                                      color: Colors.white,
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                )
-              ],
+                            const SizedBox(
+                              width: 5,
+                            ),
+                            Text(
+                              filteredList()[index].votes == "null"
+                                  ? "0"
+                                  : filteredList()[index].votes.toString(),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyText2
+                                  ?.copyWith(
+                                    color: Colors.white,
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  )
+                ],
+              ),
             ),
           ),
         );
