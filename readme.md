@@ -20,7 +20,7 @@
 
 ## VIDEO
 
-<video src="https://firebasestorage.googleapis.com/v0/b/aniket--singh.appspot.com/o/2023-07-30%2021.27.04.mp4?alt=media&token=490dc27d-f98a-42ee-9a89-89cd779abec9" controls="controls" width="100%" height="auto"> </video>
+https://github.com/Anikets08/bookology/assets/63359563/5f5080a6-137b-4d5e-9928-1eebe95bb6e9
 
 ## DOWNLOAD APP
 
